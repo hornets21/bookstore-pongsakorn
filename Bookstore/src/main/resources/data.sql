@@ -1,0 +1,1 @@
+insert into USER(username, password, name, surname) values('joeky', '$2a$10$PNUg277y0htM85anNtCK4OWv9xuY1P5tC6h7CrnqpXY1HENbvVKSa', 'pongsakorn', 'srisinthorn');

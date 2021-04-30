@@ -31,7 +31,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-//		auth.inMemoryAuthentication().withUser("john.doe").password(passwordEncoder().encode("thisismysecret")).roles("USER");
 	}
 
 	@Override
@@ -39,7 +38,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		http.headers().frameOptions().disable().and().cors().and().csrf().disable()
 			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
 			.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-			.and().authorizeRequests().antMatchers(HttpMethod.GET, "/users", "/books").permitAll()
+			.and().authorizeRequests().antMatchers(HttpMethod.GET, "/books").permitAll()
 			.antMatchers("/h2-console/**").permitAll()
 			.antMatchers(HttpMethod.POST, "/login", "/users").permitAll()
 			.anyRequest().authenticated();

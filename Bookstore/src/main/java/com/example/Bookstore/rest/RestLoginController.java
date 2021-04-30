@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -42,9 +43,10 @@ public class RestLoginController {
 	
 	@PostMapping("/login")
 	public ResponseEntity<?> loginUser(HttpServletRequest request, @RequestBody LoginRequest loginRequest) {
-		logger.info("start login with username : {}", loginRequest.getUsername());
+		logger.info("start login with username : {} {}", loginRequest.getUsername(), passwordEncoder.encode(loginRequest.getPassword()));
 		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		return ResponseEntity.ok().build();
+		String jwt = jwtUtils.generateJwtToken(authentication);
+		return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION, jwt).build();
 	}
 }

@@ -39,8 +39,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		http.headers().frameOptions().disable().and().cors().and().csrf().disable()
 			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
 			.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-			.and().authorizeRequests().antMatchers("/h2-console/**").permitAll()
-			.antMatchers(HttpMethod.POST, "/login").permitAll()
+			.and().authorizeRequests().antMatchers(HttpMethod.GET, "/users", "/books").permitAll()
+			.antMatchers("/h2-console/**").permitAll()
+			.antMatchers(HttpMethod.POST, "/login", "/users").permitAll()
 			.anyRequest().authenticated();
 		
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

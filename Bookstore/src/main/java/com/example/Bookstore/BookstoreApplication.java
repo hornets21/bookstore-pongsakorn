@@ -15,13 +15,23 @@ import org.springframework.web.client.RestTemplate;
 
 import com.example.Bookstore.dto.BookDTO;
 import com.example.Bookstore.entity.Book;
+import com.example.Bookstore.entity.OrderBooks;
+import com.example.Bookstore.entity.User;
 import com.example.Bookstore.repository.BookRepository;
+import com.example.Bookstore.repository.OrderBooksRepository;
+import com.example.Bookstore.serivce.UserDetailServiceImpl;
 
 @SpringBootApplication
 public class BookstoreApplication {
 	
 	@Autowired
 	BookRepository bookRepository;
+	
+	@Autowired
+	UserDetailServiceImpl userDetailService;
+	
+	@Autowired
+	OrderBooksRepository orderBooksRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(BookstoreApplication.class, args);
@@ -57,6 +67,21 @@ public class BookstoreApplication {
 			}
 			
 			bookRepository.saveAll(saveBooks);
+			
+			User user = userDetailService.findUserById(1L).orElseThrow();
+			Book bookId1 = bookRepository.findById(1L).orElseThrow();
+			Book bookId4 = bookRepository.findById(4L).orElseThrow();
+			
+			OrderBooks orderBooks1 = new OrderBooks();
+			orderBooks1.setBook(bookId1);
+			orderBooks1.setUser(user);
+			orderBooksRepository.save(orderBooks1);
+			
+			OrderBooks orderBooks4 = new OrderBooks();
+			orderBooks4.setBook(bookId4);
+			orderBooks4.setUser(user);
+			orderBooksRepository.save(orderBooks4);
+
 		};
 	}
 	

@@ -1,6 +1,7 @@
 package com.example.Bookstore.serivce;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,5 +33,13 @@ public class UserDetailServiceImpl implements UserDetailsService {
 	
 	public List<UserDTO> getUsers() {
 		return userRepository.getUsers();
+	}
+	
+	public Optional<User> findUserById(Long id) {
+		return userRepository.findById(id);
+	}
+	
+	public void deleteUser(User user) {
+		userRepository.delete(user);
 	}
 }

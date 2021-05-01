@@ -21,6 +21,8 @@ public class UserDTO {
 	private String surname;
 	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date dateOfBirth;
+	
+	private int[] books;
 		
 	public UserDTO(String name, String surname, Date dateOfBirth) {
 		this.name = name;

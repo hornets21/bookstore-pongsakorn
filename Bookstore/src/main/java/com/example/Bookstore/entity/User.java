@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -33,8 +35,14 @@ public class User {
 	private Long userId;
 	
 	@Column(nullable = false, unique = true)
+	@NotNull
+	@NotBlank
 	private String username;
+	@NotNull
+	@NotBlank
 	private String password;
+	@NotNull
+	@NotBlank
 	private String name;
 	private String surname;
 	

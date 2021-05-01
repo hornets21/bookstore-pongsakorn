@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +73,7 @@ public class RestUserController {
 			user.setDateOfbirth(userCreateRequest.getDateOfBirth());
 			user = userDetailService.saveOrUpdate(user);
 			return ResponseEntity.ok().build();
-		} catch (Exception e) {
+		} catch (ConstraintViolationException e) {
 			throw e;
 		}
 	}
